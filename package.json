@@ -1,8 +1,0 @@
-{
-  "name": "ruiyatevercel-site",
-  "version": "1.0.0",
-  "description": "Static HTML site with Vercel Functions",
-  "scripts": {
-    "vercel-build": "mkdir -p /vercel/output/static && cp *.html /vercel/output/static/"
-  }
-}
