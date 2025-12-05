@@ -1,0 +1,38 @@
+<!-- 其他代码不变，只改JS部分的fetch路径 -->
+<script>
+    async function callBackend() {
+        const input = document.getElementById('inputData').value;
+        const resultDiv = document.getElementById('result');
+        
+        resultDiv.innerHTML = '';
+        resultDiv.className = '';
+        
+        if (!input || isNaN(input)) {
+            resultDiv.innerHTML = '请输入有效数字';
+            resultDiv.className = 'error';
+            return;
+        }
+        
+        try {
+            // 👇 改成 Vercel 的 API 路径
+            const response = await fetch('/api/decode', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ data: input })
+            });
+            
+            const data = await response.json();
+            
+            if (data.error) {
+                resultDiv.innerHTML = data.error;
+                resultDiv.className = 'error';
+            } else {
+                resultDiv.innerHTML = `结果: ${data.output}`;
+                resultDiv.className = 'success';
+            }
+        } catch (error) {
+            resultDiv.innerHTML = '网络错误，请重试';
+            resultDiv.className = 'error';
+        }
+    }
+</script>
