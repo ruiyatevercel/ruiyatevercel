@@ -1,16 +1,20 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000; // 使用 Vercel 的环境变量，如果本地运行就使用 3000 端口
+const port = process.env.PORT || 3000;  // Vercel 提供的端口
 
-// Serve static files from the 'public' folder
+// 提供静态文件服务，确保 public 文件夹中的内容能被正确加载
 app.use(express.static('public'));
 
+// 处理根路径请求，返回 index.html
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+// 后端计算接口
 app.get('/calculate', (req, res) => {
   const { num1, operator, num2 } = req.query;
-
   let result;
 
-  // Convert inputs to numbers
   const n1 = parseFloat(num1);
   const n2 = parseFloat(num2);
 
@@ -38,7 +42,7 @@ app.get('/calculate', (req, res) => {
   res.json({ result });
 });
 
-// 启动应用程序并监听端口
+// 启动应用
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
