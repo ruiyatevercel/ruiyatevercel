@@ -24,7 +24,7 @@
         const num2 = document.getElementById('num2').value;
 
         const response = await fetch(
-          `http://localhost:3000/calculate?num1=${num1}&operator=${operator}&num2=${num2}`
+          const response = await fetch(`/calculate?num1=${num1}&operator=${operator}&num2=${num2}`);
         );
         const result = await response.json();
 
@@ -33,3 +33,4 @@
     </script>
   </body>
 </html>
+
